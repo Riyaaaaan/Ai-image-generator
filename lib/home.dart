@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(" AI Image Generator"),
+        title: const Text("AI Image Generator"),
         actions: [
           IconButton(
             onPressed: () => Navigator.of(context).push(MaterialPageRoute(
@@ -92,23 +92,35 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            if (isLoading) ...[
-              const CircularProgressIndicator(),
-              const SizedBox(height: 20),
-            ],
-            if (image != null) Image.network(image!, width: 256, height: 256),
-            Padding(
+      body: Column(
+        children: [
+          Expanded(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  if (isLoading) ...[
+                    const CircularProgressIndicator(),
+                    const SizedBox(height: 20),
+                  ],
+                  if (image != null)
+                    Image.network(image!, width: 256, height: 256),
+                ],
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              inputText.clear();
+            },
+            child: Container(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
                 controller: inputText,
                 decoration: const InputDecoration(
                   hintText: "Enter Text to Generate AI Image",
                   filled: true,
-                  fillColor: Colors.blue,
+                  fillColor: Colors.white,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     borderSide: BorderSide.none,
@@ -116,11 +128,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: getAIImage,
+        onPressed: () {
+          getAIImage();
+          inputText.clear();
+        },
         tooltip: 'Generate AI Image',
         child: const Icon(Icons.send),
       ),
