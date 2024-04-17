@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:image_generator/info.dart';
 import 'api/api_const.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -66,11 +65,9 @@ class _MyHomePageState extends State<MyHomePage> {
         });
       } else {
         print("Error: ${response.body}");
-        // Consider adding user feedback for failure
       }
     } catch (e) {
       print("Exception: $e");
-      // Consider adding user feedback for exceptions
     } finally {
       setState(() => isLoading = false);
     }
@@ -81,16 +78,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("AI Image Generator"),
-        actions: [
-          IconButton(
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const InfoPage(),
-            )),
-            icon: const Icon(
-              Icons.info_outline,
-            ),
-          )
-        ],
       ),
       body: Column(
         children: [
